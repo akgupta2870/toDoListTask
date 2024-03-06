@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from "react";
+import { Container, Typography } from "@mui/material";
+import { TaskProvider } from "./component/taskContext";
+import TaskList from "./component/taskList";
+import TaskForm from "./component/taskForm";
 
 function App() {
+  const [selectedTask, setSelectedTask] = React.useState(null);
+
+  const handleClose = () => {
+    setSelectedTask(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <TaskProvider>
+      <Container
+        maxWidth="xl"
+        style={{
+          minHeight: "100vh",
+          paddingTop: "40px",
+          backgroundColor: "aliceblue",
+        }}
+      >
+        <Typography
+          sx={{ marginBottom: "10px" }}
+          variant="h4"
+          component="h3"
+          align="center"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Tasks Management
+        </Typography>
+        <TaskForm onClose={handleClose} task={selectedTask} />
+        <TaskList />
+      </Container>
+    </TaskProvider>
   );
 }
 
